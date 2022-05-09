@@ -1,6 +1,7 @@
 <script>
     import { Link } from "svelte-navigator";
     import { toasts } from "svelte-toasts";
+    import { user } from "../stores/stores";
 
     export function logout() {
         user.set(null);
@@ -21,11 +22,15 @@
                 }}>Log out</Link
             >
         </li>
+       
+        {#if $user && $user.role === "Admin"}
         <li class="nav-item">
             <Link to="/sign-up" class="nav-anchors"
                 >Create new user</Link
             >
         </li>
+        {/if}
+       
     </ul>
 </nav>
 

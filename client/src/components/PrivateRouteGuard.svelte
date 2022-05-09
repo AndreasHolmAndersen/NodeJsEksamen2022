@@ -11,6 +11,12 @@
 			replace: true,
 		});
 	}
+	$: if ($user && $user.role !== "Admin") {
+		navigate("/", {
+			state: { from: "/sign-up" },
+			replace: true,
+		});
+	}
 </script>
 
 {#if $user}
