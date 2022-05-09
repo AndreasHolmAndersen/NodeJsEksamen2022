@@ -19,9 +19,11 @@
 
     <PrivateRoute path="/" let:location />
 
+    
     <PrivateRoute path="/sign-up" let:location>
         <SignUp />
     </PrivateRoute>
+    
 </Router>
 
 

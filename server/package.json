@@ -7,7 +7,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon app.js",
-    "SeedDb": "node SeedDatabase.js"
+    "SeedDb": "node ./database/SeedDatabase.js"
   },
   "keywords": [],
   "author": "",

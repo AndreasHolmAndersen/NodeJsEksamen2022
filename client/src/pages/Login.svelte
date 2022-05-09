@@ -1,15 +1,18 @@
 <script>
     import { user } from "../stores/stores.js";
     import { toasts } from "svelte-toasts";
-    import { useNavigate, useLocation } from "svelte-navigator";
+    import { useNavigate } from "svelte-navigator";
+    import { onMount } from "svelte";
 
     const navigate = useNavigate();
 
     let username = "";
     let password = "";
 
-    async function handleSubmit(e) {
-        let res = await fetch("http://localhost:3000/auth/login", {
+   
+
+    async function handleSubmit() {
+        const res = await fetch("http://localhost:3000/auth/login", {
             headers: {
                 "Content-Type": "application/json",
             },
@@ -23,7 +26,8 @@
 
         if (res.ok) {
             const data = await res.json();
-            console.log(data);
+            
+
             if (data.username) {
                 user.set(data);
                 toasts.success("logged in");

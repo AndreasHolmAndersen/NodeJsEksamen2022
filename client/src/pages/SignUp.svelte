@@ -67,8 +67,8 @@
             class="form-control"
             required
         >
-            <option value="standard">Standard</option>
-            <option value="admin">Admin</option>
+            <option value="Standard">Standard</option>
+            <option value="Admin">Admin</option>
         </select>
     </div>
 
