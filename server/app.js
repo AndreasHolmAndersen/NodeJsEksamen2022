@@ -5,6 +5,7 @@ import cors from 'cors';
 import authRouter from './router/authRouter.js';
 import session from 'express-session';
 
+
 dotenv.config();
 const app = express();
 app.use(express.json());
@@ -17,8 +18,9 @@ app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: true,
-    cookie: { secure: false }
+    cookie: {secure: false}
 }));
+
 
 app.use(authRouter);
 
