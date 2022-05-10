@@ -11,18 +11,20 @@
 </script>
 
 <Router primary={false}>
-    {#if $user}
+    <!-- {#if $user} -->
         <CustomNav/>
-    {/if}
+    <!-- {/if} -->
 
     <Route path="/login" component={Login} />
+    <Route path="/sign-up" component={SignUp} />
+    
 
-    <PrivateRoute path="/" let:location />
+    <!-- <PrivateRoute path="/" let:location />
 
     
     <PrivateRoute path="/sign-up" let:location>
         <SignUp />
-    </PrivateRoute>
+    </PrivateRoute> -->
     
 </Router>
 
