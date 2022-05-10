@@ -1,10 +1,11 @@
 <script>
     import { user } from "../stores/stores.js";
     import { toasts } from "svelte-toasts";
-    import { useNavigate } from "svelte-navigator";
+    import { useNavigate, useLocation } from "svelte-navigator";
     import { onMount } from "svelte";
 
     const navigate = useNavigate();
+    const location = useLocation();
 
     let username = "";
     let password = "";
@@ -31,7 +32,11 @@
             if (data.username) {
                 user.set(data);
                 toasts.success("logged in");
-                navigate("/");
+                navigate("/", {
+                state: { from: $location.pathname },
+                replace: true,
+                
+            });
             }
             if (data.error) {
                 toasts.error(data.error);

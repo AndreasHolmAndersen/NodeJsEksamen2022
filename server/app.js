@@ -16,8 +16,7 @@ app.use(helmet()); //https://www.npmjs.com/package/helmet
 app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false,
-    saveUninitialized: true,
-    cookie: { secure: false }
+    saveUninitialized: false,
 }));
 
 app.use(authRouter);

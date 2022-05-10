@@ -39,7 +39,7 @@
         flex-direction: column;
         min-height: 100vh;
         background-color: coral;
-        max-width: 15vw;
+        min-width: 15vw;
 
         align-items: center;
     }
