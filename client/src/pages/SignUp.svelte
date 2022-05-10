@@ -38,8 +38,8 @@
         users = [...data];
     };
 
-    const handleSubmit = async () => {
-        let res = await fetch("http://localhost:3000/auth/sign-up", {
+    const createUser = async () => {
+        const res = await fetch("http://localhost:3000/auth/sign-up", {
             headers: {
                 "Content-Type": "application/json",
             },
@@ -54,14 +54,8 @@
 
         if (res.ok) {
             const data = await res.json();
-            if (data.username) {
-                user.set(data);
-                toasts.success("user created");
-                users = [...data];
-            }
-            if (data.error) {
-                toasts.error(data.error);
-            }
+            user.set(data);
+            users = [...data];
         }
     };
 </script>
@@ -71,7 +65,7 @@
         <div class="headlines">
             <li>Username</li>
             <li>Role</li>
-            <li />
+            <li>Delete</li>
         </div>
         <hr />
         {#each users as user}
@@ -121,7 +115,7 @@
         <button
             class="btn btn-full"
             on:click={() => {
-                handleSubmit();
+                createUser();
             }}>Sign up</button
         >
     </div>

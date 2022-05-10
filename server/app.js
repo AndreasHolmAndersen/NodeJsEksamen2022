@@ -5,6 +5,7 @@ import cors from 'cors';
 import authRouter from './router/authRouter.js';
 import session from 'express-session';
 
+
 dotenv.config();
 const app = express();
 app.use(express.json());
@@ -16,8 +17,10 @@ app.use(helmet()); //https://www.npmjs.com/package/helmet
 app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false,
-    saveUninitialized: false,
+    saveUninitialized: true,
+    cookie: {secure: false}
 }));
+
 
 app.use(authRouter);
 

@@ -7,8 +7,8 @@
     const navigate = useNavigate();
     const location = useLocation();
 
-    let username = "";
-    let password = "";
+    let username = "Admin";
+    let password = "password";
 
    
 

@@ -11,10 +11,10 @@ authRouter.get("/users", async (req, res) => {
 });
 
 authRouter.post("/auth/sign-up", async (req, res) => {
-  console.log(req.session.user);
+  console.log(req.session.id);
   if (req.session.user.role === "Admin") {
     const hashedPassword = await bcrypt.hash(req.body.password, 12);
-    db.users.insertOne({ username: req.body.username, password: hashedPassword, role: req.body.role });
+    await db.users.insertOne({ username: req.body.username, password: hashedPassword, role: req.body.role });
     const userList = await db.users.find().toArray();
     res.send(userList);
   }
@@ -39,8 +39,10 @@ authRouter.post("/auth/login", async (req, res) => {
     }
 
     if (isSameUsername && isSamePassword) {
-      res.send({ id: user._id, username: user.username, role: user.role });
       req.session.user = user;
+      res.send({ id: user._id, username: user.username, role: user.role });
+      
+      console.log(req.session.id);
       return;
     }
   }
@@ -51,7 +53,7 @@ authRouter.post("/auth/login", async (req, res) => {
 
 authRouter.delete("/auth/delete-user", async (req, res) => {
   console.log(req.body.id)
-  db.users.deleteOne({ _id: ObjectId(req.body.id) });
+  await db.users.deleteOne({ _id: ObjectId(req.body.id) });
   const userList = await db.users.find().toArray();
   res.send(userList);
 })
