@@ -22,6 +22,9 @@
         });
         const data = await res.json();
         products = [...data];
+        price = "";
+        cost = "";
+        title = "";
     };
 
     const deleteProduct = async (product) => {

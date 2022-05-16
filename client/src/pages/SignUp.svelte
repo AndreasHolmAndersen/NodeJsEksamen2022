@@ -56,6 +56,8 @@
             const data = await res.json();
             user.set(data);
             users = [...data];
+            username = "";
+            password = "";
         }
     };
 </script>
