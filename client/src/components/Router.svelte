@@ -1,33 +1,28 @@
 <script>
     import { Router, Link, Route } from "svelte-navigator";
-   
-    import { user } from "../stores/stores.js";
+
     import Login from "../pages/Login.svelte";
-    import SignUp from "../pages/SignUp.svelte";
+    import Users from "../pages/Users.svelte";
     import PrivateRoute from "./PrivateRoute.svelte";
     import CustomNav from "./CustomNav.svelte";
-    import AddProduct from "../pages/AddProduct.svelte";
-
-    
+    import Products from "../pages/Products.svelte";
+    import Orders from "../pages/Orders.svelte";
 </script>
 
 <Router primary={false}>
     <!-- {#if $user} -->
-        <CustomNav/>
+    <CustomNav />
     <!-- {/if} -->
 
     <Route path="/login" component={Login} />
-    <Route path="/sign-up" component={SignUp} />
-    <Route path="/add-product" component={AddProduct} />
-    
+    <Route path="/users" component={Users} />
+    <Route path="/products" component={Products} />
+    <Route path="/orders" component={Orders} />
 
     <!-- <PrivateRoute path="/" let:location />
 
     
-    <PrivateRoute path="/sign-up" let:location>
-        <SignUp />
+    <PrivateRoute path="/users" let:location>
+        <Users />
     </PrivateRoute> -->
-    
 </Router>
-
-

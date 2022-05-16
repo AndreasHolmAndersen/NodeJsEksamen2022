@@ -60,10 +60,10 @@
         </div>
         <hr />
         {#each products as product}
-            <div class="user">
-                <li class="username ">{product.title}</li>
-                <li class="role">{product.price}</li>
-                <li>{product.cost}</li>
+            <div class="product">
+                <li class="title ">{product.title}</li>
+                <li class="price">{product.price}</li>
+                <li class="cost">{product.cost}</li>
                 <li
                     on:click={() => {
                         deleteProduct(product);
@@ -120,19 +120,7 @@
         display: flex;
         flex-direction: row;
     }
-    .user-list {
+    .product {
         display: flex;
-        flex-direction: column;
-    }
-    .user {
-        display: flex;
-    }
-    .sign-up-container {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: center;
-        width: 100%;
-        margin-top: 100px;
     }
 </style>

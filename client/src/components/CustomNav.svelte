@@ -16,7 +16,7 @@
 
         <!-- {#if $user && $user.role === "Admin"} -->
             <li class="nav-item">
-                <Link to="/sign-up" class="nav-anchors">User management</Link>
+                <Link to="/users" class="nav-anchors">User management</Link>
             </li>
         <!-- {/if} -->
 
@@ -32,7 +32,10 @@
         </li>
 
         <li class="nav-item">
-            <Link to="/add-product" class="nav-anchors">Add product</Link>
+            <Link to="/products" class="nav-anchors">Products</Link>
+        </li>
+        <li class="nav-item">
+            <Link to="/orders" class="nav-anchors">Orders</Link>
         </li>
     </ul>
 </nav>

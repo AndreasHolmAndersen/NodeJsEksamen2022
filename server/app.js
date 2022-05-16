@@ -5,6 +5,7 @@ import cors from 'cors';
 import authRouter from './router/authRouter.js';
 import session from 'express-session';
 import productRouter from "./router/productRouter.js";
+import orderRouter from "./router/orderRouter.js";
 
 
 dotenv.config();
@@ -25,6 +26,7 @@ app.use(session({
 
 app.use(authRouter);
 app.use(productRouter);
+app.use(orderRouter);
 
 const PORT = process.env.PORT || 3000;
 
