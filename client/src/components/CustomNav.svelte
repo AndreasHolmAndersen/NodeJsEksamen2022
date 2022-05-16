@@ -30,6 +30,10 @@
                 }}>Log out</Link
             >
         </li>
+
+        <li class="nav-item">
+            <Link to="/add-product" class="nav-anchors">Add product</Link>
+        </li>
     </ul>
 </nav>
 

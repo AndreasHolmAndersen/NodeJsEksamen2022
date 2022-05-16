@@ -7,9 +7,9 @@
 
     const navigate = useNavigate();
 
-    let username = "";
-    let password = "";
-    let role = "";
+    let username;
+    let password;
+    let role;
     let users = [];
 
     onMount(async () => {
@@ -113,13 +113,14 @@
         </div>
 
         <button
-            class="btn btn-full"
+            class=""
             on:click={() => {
                 createUser();
             }}>Sign up</button
         >
     </div>
 </div>
+
 
 <style>
     .container {

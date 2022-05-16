@@ -6,6 +6,7 @@
     import SignUp from "../pages/SignUp.svelte";
     import PrivateRoute from "./PrivateRoute.svelte";
     import CustomNav from "./CustomNav.svelte";
+    import AddProduct from "../pages/AddProduct.svelte";
 
     
 </script>
@@ -17,6 +18,7 @@
 
     <Route path="/login" component={Login} />
     <Route path="/sign-up" component={SignUp} />
+    <Route path="/add-product" component={AddProduct} />
     
 
     <!-- <PrivateRoute path="/" let:location />

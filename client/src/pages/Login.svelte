@@ -60,7 +60,7 @@
     <div class="form-group">
         <input
             bind:value={password}
-            type="text"
+            type="password"
             class="form-control"
             placeholder="Password"
             required

@@ -10,5 +10,6 @@ const db = client.db(dbName);
 
 export default {
     client: client,
-    users: db.collection('users')
+    users: db.collection('users'),
+    products: db.collection('products')
 }
