@@ -5,7 +5,6 @@
   export let periodOneEndDate;
   export let periodTwoStartDate;
   export let periodTwoEndDate;
-  export let data;
 
   const getDataFromPeriod = async () => {
     const res = await fetch("http://localhost:3000/orders/period", {
@@ -21,8 +20,7 @@
       }),
       credentials: "include",
     });
-    data = await res.json();
-    dataFromPeriods.set(data);
+    dataFromPeriods.set(await res.json());
   };
 </script>
 
