@@ -23,7 +23,6 @@
     });
 
     const deleteUser = async (user) => {
-        console.log(user);
         const res = await fetch("http://localhost:3000/auth/delete-user", {
             headers: {
                 "Content-Type": "application/json",

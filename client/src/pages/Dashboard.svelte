@@ -1,12 +1,16 @@
 <script>
   import CustomPeriods from "../components/CustomPeriods.svelte";
   import FixedPeriods from "../components/FixedPeriods.svelte";
-  import { dataFromPeriods } from "../stores/stores";
+  import RevenueWidget from "../components/RevenueWidget.svelte";
 </script>
 
-<CustomPeriods />
+<div class="dashboard-wrapper">
+  <div class="">
+    <!-- <CustomPeriods /> -->
+    <FixedPeriods />
+  </div>
 
-<FixedPeriods />
-{#if $dataFromPeriods[0] !== undefined}
-  <p>{console.log($dataFromPeriods)}</p>
-{/if}
+  <div>
+    <RevenueWidget />
+  </div>
+</div>

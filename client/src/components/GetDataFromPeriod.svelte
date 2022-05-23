@@ -1,10 +1,12 @@
 <script>
-  import { dataFromPeriods } from "../stores/stores";
-
+  import { dataFromPeriods, periodsStore} from "../stores/stores";
+  
   export let periodOneStartDate;
   export let periodOneEndDate;
   export let periodTwoStartDate;
   export let periodTwoEndDate;
+  export let periods = [];
+  
 
   const getDataFromPeriod = async () => {
     const res = await fetch("http://localhost:3000/orders/period", {
@@ -21,11 +23,13 @@
       credentials: "include",
     });
     dataFromPeriods.set(await res.json());
+    console.log($dataFromPeriods)
   };
 </script>
 
 <button
   on:click={() => {
     getDataFromPeriod();
+    periodsStore.set(periods)
   }}>sort by period</button
 >

@@ -70,7 +70,6 @@
     <button
         class="btn btn-full"
         on:click={() => {
-            console.log(username, password);
             handleSubmit();
         }}>Login</button
     >

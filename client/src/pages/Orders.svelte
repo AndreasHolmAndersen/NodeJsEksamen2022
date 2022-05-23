@@ -30,7 +30,6 @@
             credentials: "include",
         });
         const data = await res.json();
-        console.log(data);
     };
 
     onMount(async () => {
@@ -63,7 +62,6 @@
                     <button
                         on:click={() => {
                             order.products.push({ product });
-                            console.log(order);
                         }}>Add to order</button
                     >
                 </li>
