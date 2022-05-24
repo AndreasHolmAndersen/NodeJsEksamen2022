@@ -1,6 +1,5 @@
 <script>
   import { Router, Link, Route } from "svelte-navigator";
-
   import Login from "../pages/Login.svelte";
   import Users from "../pages/Users.svelte";
   import PrivateRoute from "./PrivateRoute.svelte";
@@ -8,6 +7,7 @@
   import Products from "../pages/Products.svelte";
   import Orders from "../pages/Orders.svelte";
   import Dashboard from "../pages/Dashboard.svelte";
+  import Goals from "../pages/Goals.svelte";
 </script>
 
 <Router primary={false}>
@@ -20,6 +20,7 @@
   <Route path="/users" component={Users} />
   <Route path="/products" component={Products} />
   <Route path="/orders" component={Orders} />
+  <Route path="/goals" component={Goals} />
 
   <!-- <PrivateRoute path="/" let:location />
 

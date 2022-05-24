@@ -1,5 +1,5 @@
-<script>
-  import { dataFromPeriods, periodsStore} from "../stores/stores";
+<!-- <script>
+  import { ordersFromPeriods, periodsStore} from "../stores/stores";
   
   export let periodOneStartDate;
   export let periodOneEndDate;
@@ -22,8 +22,7 @@
       }),
       credentials: "include",
     });
-    dataFromPeriods.set(await res.json());
-    console.log($dataFromPeriods)
+    ordersFromPeriods.set(await res.json());
   };
 </script>
 
@@ -32,4 +31,4 @@
     getDataFromPeriod();
     periodsStore.set(periods)
   }}>sort by period</button
->
+> -->

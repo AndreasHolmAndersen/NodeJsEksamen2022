@@ -1,18 +1,52 @@
 <script>
-  import GetDataFromPeriod from "./GetDataFromPeriod.svelte";
+  import { goals, ordersFromPeriods, periodsStore } from "../stores/stores";
 
-  let periodOneYear = "";
+  let periodOneYear = "2020";
   let periodOne = {
     periodOneStart: "01-01",
     periodOneEnd: "12-31",
-    periodName: "",
+    periodName: "year",
   };
 
-  let periodTwoYear = "";
+  let periodTwoYear = "2021";
   let periodTwo = {
     periodTwoStart: "01-01",
     periodTwoEnd: "12-31",
-    periodName: "",
+    periodName: "year",
+  };
+
+  const getOrdersFromPeriod = async () => {
+    const res = await fetch("http://localhost:3000/orders/period", {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      method: "POST",
+      body: JSON.stringify({
+        periodOneStartDate: `${periodOneYear}-${periodOne.periodOneStart}`,
+        periodOneEndDate: `${periodOneYear}-${periodOne.periodOneEnd}`,
+        periodTwoStartDate: `${periodTwoYear}-${periodTwo.periodTwoStart}`,
+        periodTwoEndDate: `${periodTwoYear}-${periodTwo.periodTwoEnd}`,
+      }),
+      credentials: "include",
+    });
+    ordersFromPeriods.set(await res.json());
+  };
+
+  const getGoals = async () => {
+    const res = await fetch("http://localhost:3000/goals/periods", {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      method: "POST",
+      body: JSON.stringify({
+        periodOneYear,
+        periodOneName: periodOne.periodName,
+        periodTwoYear,
+        periodTwoName: periodTwo.periodName,
+      }),
+      credentials: "include",
+    });
+    goals.set(await res.json());
   };
 </script>
 
@@ -26,7 +60,7 @@
           value={{
             periodOneStart: "01-01",
             periodOneEnd: "12-31",
-            periodName: "",
+            periodName: "year",
           }}>Whole Year</option
         >
         <option
@@ -149,7 +183,7 @@
           value={{
             periodTwoStart: "01-01",
             periodTwoEnd: "12-31",
-            periodName: "",
+            periodName: "year",
           }}>Whole Year</option
         >
         <option
@@ -268,13 +302,16 @@
     </div>
   </div>
 
-  <GetDataFromPeriod
-    periodOneStartDate={`${periodOneYear}-${periodOne.periodOneStart}`}
-    periodOneEndDate={`${periodOneYear}-${periodOne.periodOneEnd}`}
-    periodTwoStartDate={`${periodTwoYear}-${periodTwo.periodTwoStart}`}
-    periodTwoEndDate={`${periodTwoYear}-${periodTwo.periodTwoEnd}`}
-    periods={[{...periodOne, year:periodOneYear}, {...periodTwo, year: periodTwoYear}]}
-  />
+  <button
+    on:click={() => {
+      getOrdersFromPeriod();
+      periodsStore.set([
+        { ...periodOne, year: periodOneYear },
+        { ...periodTwo, year: periodTwoYear },
+      ]);
+      getGoals();
+    }}>sort by period</button
+  >
 </div>
 
 <style>

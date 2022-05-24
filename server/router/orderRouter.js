@@ -25,7 +25,6 @@ orderRouter.post("/orders", async (req, res) => {
 });
 
 orderRouter.post("/orders/period", async (req, res) => {
-  console.log(req.body);
   const dataPeriodOne = await db.orders
     .find({
       date: {
