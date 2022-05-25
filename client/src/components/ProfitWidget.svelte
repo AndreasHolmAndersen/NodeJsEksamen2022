@@ -55,9 +55,9 @@
             });
             profitPeriod = revenuePeriod - costPeriod;
         }
-        if ($goals.length > 0) {
+        
             getProfitGoal(goalsPassed);
-        }
+        
     };
 </script>
 

@@ -76,9 +76,9 @@
     differenceInPercentage = Number(
       ((revenuePeriodTwo - revenuePeriodOne) / revenuePeriodOne) * 100
     ).toFixed(2);
-    if ($goals.length > 0) {
+    
       getRevenueGoal($goals);
-    }
+    
   };
 </script>
 
