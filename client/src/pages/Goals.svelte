@@ -31,6 +31,7 @@
   <label for="goal">Goal</label>
   <select bind:value={goal} name="goal" id="goal">
     <option value="revenue">Revenue</option>
+    <option value="profit">Profit</option>
   </select>
 
   <label for="year">Year</label>

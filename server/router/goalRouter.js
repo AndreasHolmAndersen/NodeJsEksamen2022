@@ -10,7 +10,6 @@ goalRouter.get("/goals", async (req, res) => {
 });
 
 goalRouter.post("/goals/periods", async (req, res) => {
-  console.log(req.body);
   const goalsPeriodOne = await db.goals
     .find({
       year: Number(req.body.periodOneYear),

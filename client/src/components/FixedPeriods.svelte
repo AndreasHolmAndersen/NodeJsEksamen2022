@@ -55,7 +55,7 @@
   <div class="period">
     <div>
       <p>Year 1</p>
-      <input type="number" bind:value={periodOneYear} />
+      <input type="number" bind:value={periodOneYear}  />
       <select bind:value={periodOne} name="periodOne" id="periodOne">
         <option
           value={{

@@ -27,7 +27,6 @@
     let goalOne = undefined;
     let goalTwo = undefined;
     if (goals.length > 0) {
-      console.log(goals[0]);
       goalOne = goals[0].find((goal) => {
         return goal.goal === "revenue";
       });
@@ -119,15 +118,15 @@
         </div>
       </div>
     </div>
-    <!-- <h3 class="text-align">Goals</h3> -->
 
     <div class="goal">
       <div>
-        <p class="goal-headline">Goal</p>
+       
         {#if revenueGoalOne !== null}
+        <p class="goal-headline">Goal</p>
           <p class="text-align">{revenueFormatter.format(revenueGoalOne)}</p>
           <div class="pie-chart">
-            <PieChart size={40} percent={goalPercentageOne} />
+            <PieChart size={50} percent={goalPercentageOne} />
             {#if goalPercentageOne >= 100}
               <span class="percentage positive">{goalPercentageOne}%</span>
             {:else}
@@ -140,11 +139,12 @@
       </div>
 
       <div>
-        <p class="goal-headline">Goal</p>
+        
         {#if revenueGoalTwo !== null}
+        <p class="goal-headline">Goal</p>
           <p class="text-align">{revenueFormatter.format(revenueGoalTwo)}</p>
           <div class="pie-chart">
-            <PieChart size={40} percent={goalPercentageTwo} />
+            <PieChart size={50} percent={goalPercentageTwo} />
             {#if goalPercentageTwo >= 100}
               <span class="percentage positive">{goalPercentageTwo}%</span>
             {:else}
