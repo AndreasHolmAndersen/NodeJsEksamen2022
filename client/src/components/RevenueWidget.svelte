@@ -9,6 +9,7 @@
   let revenueFormatter = Intl.NumberFormat("da-DA", {
     style: "currency",
     currency: "DKK",
+    maximumFractionDigits: 0,
   });
 
   let revenueGoalOne;
@@ -20,19 +21,26 @@
   $: $ordersFromPeriods, calculateRevenue($ordersFromPeriods);
 
   const getRevenueGoal = (goals) => {
-    let goal1;
-    let goal2;
+    revenueGoalOne = null;
+    revenueGoalTwo = null;
+
+    let goalOne = undefined;
+    let goalTwo = undefined;
     if (goals.length > 0) {
-      goal1 = goals[0].find((goal) => {
+      console.log(goals[0]);
+      goalOne = goals[0].find((goal) => {
         return goal.goal === "revenue";
       });
 
-      goal2 = goals[1].find((goal) => {
+      goalTwo = goals[1].find((goal) => {
         return goal.goal === "revenue";
       });
-
-      revenueGoalOne = goal1.goalValue;
-      revenueGoalTwo = goal2.goalValue;
+      if (goalOne !== undefined) {
+        revenueGoalOne = goalOne.goalValue;
+      }
+      if (goalTwo !== undefined) {
+        revenueGoalTwo = goalTwo.goalValue;
+      }
     }
 
     goalPercentageOne = Number(
@@ -69,8 +77,9 @@
     differenceInPercentage = Number(
       ((revenuePeriodTwo - revenuePeriodOne) / revenuePeriodOne) * 100
     ).toFixed(2);
-
-    getRevenueGoal($goals);
+    if ($goals.length > 0) {
+      getRevenueGoal($goals);
+    }
   };
 </script>
 
@@ -81,7 +90,9 @@
       <div class="period-one">
         <h3 class="text-align">
           {$periodsStore[0].year}
-          {$periodsStore[0].periodName}
+          {#if $periodsStore[0].periodName !== "year"}
+            {$periodsStore[0].periodName}
+          {/if}
         </h3>
         <div>
           {revenueFormatter.format(revenuePeriodOne)}
@@ -90,7 +101,9 @@
       <div class="period-two">
         <h3 class="text-align">
           {$periodsStore[1].year}
-          {$periodsStore[1].periodName}
+          {#if $periodsStore[1].periodName !== "year"}
+            {$periodsStore[1].periodName}
+          {/if}
         </h3>
         <div class="text-align">
           {revenueFormatter.format(revenuePeriodTwo)}
@@ -106,35 +119,52 @@
         </div>
       </div>
     </div>
-    <h3 class="text-align">Goals</h3>
+    <!-- <h3 class="text-align">Goals</h3> -->
+
     <div class="goal">
       <div>
-        <p>{revenueFormatter.format(revenueGoalOne)}</p>
-        <div class="pie-chart">
-          <PieChart size={70} percent={goalPercentageOne} />
-          {#if goalPercentageOne >= 100}
-            <span class="percentage positive">{goalPercentageOne}%</span>
-          {:else}
-            <span class="percentage negative">{goalPercentageOne}%</span>
-          {/if}
-        </div>
+        <p class="goal-headline">Goal</p>
+        {#if revenueGoalOne !== null}
+          <p class="text-align">{revenueFormatter.format(revenueGoalOne)}</p>
+          <div class="pie-chart">
+            <PieChart size={40} percent={goalPercentageOne} />
+            {#if goalPercentageOne >= 100}
+              <span class="percentage positive">{goalPercentageOne}%</span>
+            {:else}
+              <span class="percentage negative">{goalPercentageOne}%</span>
+            {/if}
+          </div>
+        {:else}
+          <p>No Goal Entered</p>
+        {/if}
       </div>
+
       <div>
-        <p>{revenueFormatter.format(revenueGoalTwo)}</p>
-        <div class="pie-chart">
-          <PieChart size={70} percent={goalPercentageTwo} />
-          {#if goalPercentageTwo >= 100}
-            <span class="percentage positive">{goalPercentageTwo}%</span>
-          {:else}
-            <span class="percentage negative">{goalPercentageTwo}%</span>
-          {/if}
-        </div>
+        <p class="goal-headline">Goal</p>
+        {#if revenueGoalTwo !== null}
+          <p class="text-align">{revenueFormatter.format(revenueGoalTwo)}</p>
+          <div class="pie-chart">
+            <PieChart size={40} percent={goalPercentageTwo} />
+            {#if goalPercentageTwo >= 100}
+              <span class="percentage positive">{goalPercentageTwo}%</span>
+            {:else}
+              <span class="percentage negative">{goalPercentageTwo}%</span>
+            {/if}
+          </div>
+        {:else}
+          <p>No Goal Entered</p>
+        {/if}
       </div>
     </div>
   </div>
 {/if}
 
 <style>
+  .goal-headline {
+    width: 100%;
+    opacity: 0.7;
+    text-align: center;
+  }
   .period-wrapper {
     display: flex;
     flex-direction: row;

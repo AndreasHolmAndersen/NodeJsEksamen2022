@@ -46,6 +46,7 @@
       }),
       credentials: "include",
     });
+    
     goals.set(await res.json());
   };
 </script>
