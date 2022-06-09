@@ -1,114 +1,111 @@
 <script>
-    import { user } from "../stores/stores.js";
-    import { toasts } from "svelte-toasts";
-    import { useNavigate, useLocation } from "svelte-navigator";
-    import { onMount } from "svelte";
+  import { user } from "../stores/stores.js";
+  import { toasts } from "svelte-toasts";
+  import { useNavigate, useLocation } from "svelte-navigator";
+  import { onMount } from "svelte";
 
-    const navigate = useNavigate();
-    const location = useLocation();
+  const navigate = useNavigate();
+  const location = useLocation();
 
-    let username = "Admin";
-    let password = "password";
+  let username = "Admin";
+  let password = "password";
 
-   
+  async function handleSubmit() {
+    const res = await fetch("http://localhost:3000/auth/login", {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      method: "POST",
+      body: JSON.stringify({
+        username,
+        password,
+      }),
+      credentials: "include",
+    });
 
-    async function handleSubmit() {
-        const res = await fetch("http://localhost:3000/auth/login", {
-            headers: {
-                "Content-Type": "application/json",
-            },
-            method: "POST",
-            body: JSON.stringify({
-                username,
-                password,
-            }),
-            credentials: "include"
+    if (res.ok) {
+      const data = await res.json();
+
+      if (data.username) {
+        user.set(data);
+        toasts.success("logged in");
+        navigate("/", {
+          state: { from: $location.pathname },
+          replace: true,
         });
-
-        if (res.ok) {
-            const data = await res.json();
-            
-
-            if (data.username) {
-                user.set(data);
-                toasts.success("logged in");
-                navigate("/", {
-                state: { from: $location.pathname },
-                replace: true,
-                
-            });
-            }
-            if (data.error) {
-                toasts.error(data.error);
-            }
-        }
+      }
+      if (data.error) {
+        toasts.error(data.error);
+      }
     }
+  }
 </script>
 
 <div class="login-container">
-    <h1>Login page</h1>
-    <div class="form-group">
-        <input
-            bind:value={username}
-            type="text"
-            class="form-control"
-            placeholder="Username"
-            required
-        />
-    </div>
+  <h1>Login page</h1>
+  <div class="form-group">
+    <input
+      bind:value={username}
+      type="text"
+      class="form-control"
+      placeholder="Username"
+      required
+    />
+  </div>
 
-    <div class="form-group">
-        <input
-            bind:value={password}
-            type="password"
-            class="form-control"
-            placeholder="Password"
-            required
-        />
-    </div>
+  <div class="form-group">
+    <input
+      bind:value={password}
+      type="password"
+      class="form-control"
+      placeholder="Password"
+      required
+    />
+  </div>
 
-    <button
-        class="btn btn-full"
-        on:click={() => {
-            handleSubmit();
-        }}>Login</button
-    >
+  <button
+    class="btn btn-full"
+    on:click={() => {
+      handleSubmit();
+    }}>Login</button
+  >
 </div>
 
 <style>
-    .login-container {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-    }
+  .login-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100%;
+  }
 
-    input {
-        margin: 15px;
-        height: 30px;
-        text-indent: 10px;
+  input {
+    margin: 15px;
+    height: 30px;
+    text-indent: 10px;
 
-        border: none;
-        box-shadow: 1px 1px 1px #888888;
-    }
-    button {
-        color: white;
-        text-transform: uppercase;
-        background-color: #233249;
-        border-width: 0;
-        height: 54px;
-        text-align: center !important;
-        padding: 0 1.25em;
-        width: auto;
-        box-shadow: 1px 1px 1px #888888;
-    }
-    button:hover {
-        color: #fff;
-        background-color: #233249;
-        border-color: #233249;
-    }
-    h1 {
-        text-transform: uppercase;
-    }
+    border: none;
+    box-shadow: 1px 1px 1px #888888;
+  }
+  button {
+    color: white;
+    text-transform: uppercase;
+    background-color: #233249;
+    border-width: 0;
+    height: 54px;
+    text-align: center !important;
+    padding: 0 1.25em;
+    width: auto;
+    box-shadow: 1px 1px 1px #888888;
+  }
+  button:hover {
+    color: #fff;
+    background-color: #233249;
+    border-color: #233249;
+  }
+  h1 {
+    text-transform: uppercase;
+  }
 </style>

@@ -14,11 +14,20 @@
       <Link to="/" class="nav-anchors">CEO Dashboard</Link>
     </li>
 
-    <!-- {#if $user && $user.role === "Admin"} -->
-    <li class="nav-item">
-      <Link to="/users" class="nav-anchors">User management</Link>
-    </li>
-    <!-- {/if} -->
+    {#if $user && $user.role === "Admin"}
+      <li class="nav-item">
+        <Link to="/users" class="nav-anchors">User management</Link>
+      </li>
+      <li class="nav-item">
+        <Link to="/products" class="nav-anchors">Products</Link>
+      </li>
+      <li class="nav-item">
+        <Link to="/orders" class="nav-anchors">Orders</Link>
+      </li>
+      <li class="nav-item">
+        <Link to="/goals" class="nav-anchors">Goals</Link>
+      </li>
+    {/if}
 
     <li class="nav-item">
       <Link
@@ -29,16 +38,6 @@
           toasts.warning("youre now logged out");
         }}>Log out</Link
       >
-    </li>
-
-    <li class="nav-item">
-      <Link to="/products" class="nav-anchors">Products</Link>
-    </li>
-    <li class="nav-item">
-      <Link to="/orders" class="nav-anchors">Orders</Link>
-    </li>
-    <li class="nav-item">
-      <Link to="/goals" class="nav-anchors">Goals</Link>
     </li>
   </ul>
 </nav>

@@ -20,8 +20,11 @@ orderRouter.get("/orders", async (req, res) => {
 });
 
 orderRouter.post("/orders", async (req, res) => {
-  await db.orders.insertOne({ ...req.body.order, date: new Date() });
-  res.send({ message: "Order created" });
+  const order = await db.orders.insertOne({
+    ...req.body.order,
+    date: new Date(),
+  });
+  res.send(order);
 });
 
 orderRouter.post("/orders/period", async (req, res) => {
