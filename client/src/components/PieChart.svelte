@@ -1,8 +1,10 @@
 <script>
+  import { theme } from "../stores/stores";
+
   export let size = 200;
   export let percent = 0;
-  export let bgColor = "white";
-  export let fgColor = "coral";
+  let bgColor = "white";
+  //let fgColor = "gray";
 
   $: viewBox = `0 0 ${size} ${size}`;
 
@@ -18,7 +20,7 @@
     cx={radius}
     cy={radius}
     fill={bgColor}
-    stroke={fgColor}
+    stroke={$theme.color}
     stroke-width={1}
   />
   <circle
@@ -26,7 +28,7 @@
     cx={radius}
     cy={radius}
     fill={bgColor}
-    stroke={fgColor}
+    stroke={$theme.color}
     stroke-width={radius}
     stroke-dasharray={dashArray}
   />

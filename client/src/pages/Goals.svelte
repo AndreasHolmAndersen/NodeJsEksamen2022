@@ -164,6 +164,6 @@
   <button
     on:click={() => {
       setGoal();
-    }}>sort by period</button
+    }}>create goal</button
   >
 </div>

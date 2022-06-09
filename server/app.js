@@ -7,9 +7,32 @@ import session from "express-session";
 import productRouter from "./router/productRouter.js";
 import orderRouter from "./router/orderRouter.js";
 import goalRouter from "./router/goalRouter.js";
+import http from "http";
+import { Server } from "socket.io";
+
+const app = express();
+
+const PORT = process.env.PORT || 3000;
+const server = http.createServer(app);
+const io = new Server(server, {
+  cors: {
+    origin: "http://localhost:8080",
+    credentials: true,
+  },
+});
+
+const wrap = (middleware) => (socket, next) =>
+  middleware(socket.request, {}, next);
 
 dotenv.config();
-const app = express();
+
+const sessionMiddleware = session({
+  secret: process.env.SESSION_SECRET,
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: false },
+});
+
 app.use(express.json());
 app.use(
   cors({
@@ -18,20 +41,18 @@ app.use(
   })
 );
 app.use(helmet()); //https://www.npmjs.com/package/helmet
-app.use(
-  session({
-    secret: process.env.SESSION_SECRET,
-    resave: false,
-    saveUninitialized: true,
-    cookie: { secure: false },
-  })
-);
+app.use(sessionMiddleware);
+
+io.use(wrap(sessionMiddleware));
+io.on("connection", (socket) => {
+  socket.on("themeChanged", ({ data }) => {
+    console.log(data);
+    io.emit("theme", { data });
+  });
+});
 
 app.use(authRouter);
 app.use(productRouter);
 app.use(orderRouter);
 app.use(goalRouter);
-
-const PORT = process.env.PORT || 3000;
-
-app.listen(PORT, () => console.log("Running on server", PORT));
+server.listen(PORT, () => console.log("Running on server", PORT));

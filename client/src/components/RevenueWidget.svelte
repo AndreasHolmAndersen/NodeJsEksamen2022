@@ -1,5 +1,10 @@
 <script>
-  import { goals, ordersFromPeriods, periodsStore } from "../stores/stores";
+  import {
+    goals,
+    ordersFromPeriods,
+    periodsStore,
+    theme,
+  } from "../stores/stores";
   import PieChart from "./PieChart.svelte";
 
   let revenuePeriodOne = 0;
@@ -76,14 +81,13 @@
     differenceInPercentage = Number(
       ((revenuePeriodTwo - revenuePeriodOne) / revenuePeriodOne) * 100
     ).toFixed(2);
-    
-      getRevenueGoal($goals);
-    
+
+    getRevenueGoal($goals);
   };
 </script>
 
 {#if $ordersFromPeriods.length > 0}
-  <div class="container">
+  <div class="container" style="border: 2px solid {$theme.color}">
     <h3 class="text-align headline">Revenue</h3>
     <div class="period-wrapper">
       <div class="period-one">
@@ -121,9 +125,8 @@
 
     <div class="goal">
       <div>
-       
         {#if revenueGoalOne !== null}
-        <p class="goal-headline">Goal</p>
+          <p class="goal-headline">Goal</p>
           <p class="text-align">{revenueFormatter.format(revenueGoalOne)}</p>
           <div class="pie-chart">
             <PieChart size={50} percent={goalPercentageOne} />
@@ -139,9 +142,8 @@
       </div>
 
       <div>
-        
         {#if revenueGoalTwo !== null}
-        <p class="goal-headline">Goal</p>
+          <p class="goal-headline">Goal</p>
           <p class="text-align">{revenueFormatter.format(revenueGoalTwo)}</p>
           <div class="pie-chart">
             <PieChart size={50} percent={goalPercentageTwo} />
@@ -172,14 +174,8 @@
   }
   .container {
     min-width: 350px;
-    border: 2px solid coral;
     border-radius: 20px;
     padding: 15px;
-    margin: 10px;
-  }
-  .period-one {
-  }
-  .period-two {
   }
   .text-align {
     text-align: center;

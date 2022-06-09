@@ -1,14 +1,14 @@
 <script>
   import { Link } from "svelte-navigator";
   import { toasts } from "svelte-toasts";
-  import { user } from "../stores/stores";
+  import { theme, user } from "../stores/stores";
 
   export function logout() {
     user.set(null);
   }
 </script>
 
-<nav class="nav-bar">
+<nav class="nav-bar" style="background-color: {$theme.color}">
   <ul class="nav-links">
     <li class="nav-item">
       <Link to="/" class="nav-anchors">CEO Dashboard</Link>
@@ -48,10 +48,9 @@
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    background-color: coral;
     min-width: 15vw;
-
     align-items: center;
+    background-color: gray;
   }
   .nav-links {
     display: flex;
@@ -64,6 +63,7 @@
     padding-left: 10px;
   }
   .nav-item:hover {
-    background-color: lightcoral;
+    opacity: 80%;
+    margin-left: 10px;
   }
 </style>
