@@ -4,7 +4,6 @@
   let products = [];
   let order = { products: [] };
   let orderId;
-  let amount;
 
   const addOrder = async () => {
     const res = await fetch("http://localhost:3000/orders", {
@@ -37,13 +36,15 @@
     const data = await res.json();
   };
 
-  onMount(async () => {
+  const fetchProducts = async () => {
     const res = await fetch("http://localhost:3000/products", {
       credentials: "include",
     });
     const data = await res.json();
     products = [...data];
-  });
+  };
+
+  onMount(fetchProducts);
 </script>
 
 <div class="container">
@@ -53,6 +54,7 @@
       <li>Price</li>
       <li>Cost</li>
       <li>Amount</li>
+      <li />
     </div>
     <hr />
     {#each products as product}
@@ -61,33 +63,50 @@
         <li class="price">{product.price}</li>
         <li class="cost">{product.cost}</li>
         <li class="input-number">
-          <input type="number" bind:value={product.amount} />
+          <input
+            class="custom-input"
+            type="number"
+            bind:value={product.amount}
+            style="width: 100%;"
+          />
         </li>
         <li>
           <button
+            class="custom-button"
             on:click={() => {
               order.products.push({ product });
               order = order;
-            }}>Add to order</button
+            }}>+</button
           >
         </li>
       </div>
     {/each}
   </ul>
 
-  <button
-    on:click={() => {
-      addOrder();
-    }}>FINISH</button
-  >
-
-  <div>
-    <input type="text" bind:value={orderId} placeholder="enter order id" />
+  <div class="finish">
     <button
+      class="custom-button"
+      on:click={() => {
+        addOrder();
+        fetchProducts();
+      }}>FINISH</button
+    >
+  </div>
+
+  <div class="delete-order">
+    <input
+      class="custom-input delete-input"
+      type="text"
+      bind:value={orderId}
+      placeholder="enter order id"
+    />
+    <button
+      class="custom-button"
       on:click={() => {
         deleteOrder();
         orderId = "";
         order = { products: [] };
+        fetchProducts();
       }}>Delete order</button
     >
   </div>
@@ -123,7 +142,9 @@
     width: 100%;
   }
   li {
-    width: 100px;
+    width: 100%;
+    min-width: 130px;
+    margin-top: 5px;
   }
   .headlines {
     display: flex;
@@ -137,5 +158,15 @@
     display: flex;
     align-items: center;
     flex-direction: column;
+  }
+  .finish {
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+  .delete-order {
+    display: flex;
+  }
+  .delete-input {
+    margin-right: 10px;
   }
 </style>

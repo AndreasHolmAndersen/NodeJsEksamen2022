@@ -173,7 +173,7 @@
     justify-content: space-around;
   }
   .container {
-    min-width: 350px;
+    min-width: 450px;
     border-radius: 20px;
     padding: 15px;
   }

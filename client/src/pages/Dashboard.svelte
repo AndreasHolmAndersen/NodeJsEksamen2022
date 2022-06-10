@@ -7,27 +7,38 @@
 </script>
 
 <div class="dashboard-wrapper">
-  <div class="row">
-    <FixedPeriods />
-    <ThemeWidget />
+  <div class="sort-section">
+    <div class="themes">
+      <ThemeWidget />
+    </div>
+    <div class="periods">
+      <FixedPeriods />
+    </div>
   </div>
-  <p>Think about revenue growth goals, and implementation of the widget</p>
   <div class="widgets">
-    <RevenueWidget />
-
+    <div class="revenue-widget">
+      <RevenueWidget />
+    </div>
     <div class="profit-widgets">
-      {#if $ordersFromPeriods.length > 0}
-        <ProfitWidget
-          ordersFromPeriod={$ordersFromPeriods[0]}
-          goalsPassed={$goals[0]}
-          period={$periodsStore[0]}
-        />
-        <ProfitWidget
-          ordersFromPeriod={$ordersFromPeriods[1]}
-          goalsPassed={$goals[1]}
-          period={$periodsStore[1]}
-        />
-      {/if}
+      <div class="profit-widget">
+        {#if $ordersFromPeriods.length > 0}
+          <ProfitWidget
+            ordersFromPeriod={$ordersFromPeriods[0]}
+            goalsPassed={$goals[0]}
+            period={$periodsStore[0]}
+          />
+        {/if}
+      </div>
+
+      <div class="profit-widget">
+        {#if $ordersFromPeriods.length > 0}
+          <ProfitWidget
+            ordersFromPeriod={$ordersFromPeriods[1]}
+            goalsPassed={$goals[1]}
+            period={$periodsStore[1]}
+          />
+        {/if}
+      </div>
     </div>
   </div>
 </div>
@@ -38,14 +49,30 @@
   }
   .widgets {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 70px;
   }
   .profit-widgets {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
   }
-  .row {
+  .profit-widget {
+    margin: 15px;
+  }
+  .sort-section {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    align-items: center;
+  }
+  .themes {
+    align-self: flex-end;
+    margin: 10px;
+  }
+  .revenue-widget {
+    margin: 15px;
+  }
+  .periods {
+    margin-top: 20px;
   }
 </style>

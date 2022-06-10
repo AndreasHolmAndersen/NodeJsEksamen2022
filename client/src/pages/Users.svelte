@@ -7,8 +7,8 @@
 
   const navigate = useNavigate();
 
-  let username;
-  let password;
+  let username = "";
+  let password = "";
   let role;
   let users = [];
 
@@ -77,7 +77,7 @@
             deleteUser(user);
           }}
         >
-          <Trashcan />
+          <Trashcan width="1.35em" height="1.35em" />
         </li>
       </div>
     {/each}
@@ -89,7 +89,7 @@
       <input
         bind:value={username}
         type="text"
-        class="form-control"
+        class="form-control custom-input"
         placeholder="Username"
         required
       />
@@ -99,23 +99,30 @@
       <input
         bind:value={password}
         type="text"
-        class="form-control"
+        class="form-control custom-input"
         placeholder="Password"
         required
       />
     </div>
 
     <div class="form-group">
-      <select bind:value={role} type="text" class="form-control" required>
+      <select
+        class="custom-input form-control"
+        bind:value={role}
+        type="text"
+        required
+      >
         <option value="Standard">Standard</option>
         <option value="Admin">Admin</option>
       </select>
     </div>
 
     <button
-      class=""
+      class="custom-button"
       on:click={() => {
-        createUser();
+        if (username !== "" && password !== "") {
+          createUser();
+        }
       }}>Sign up</button
     >
   </div>
@@ -127,9 +134,12 @@
     flex-direction: column;
     align-items: center;
     width: 100%;
+    margin-top: 50px;
   }
   li {
-    width: 100px;
+    width: 100%;
+    min-width: 130px;
+    margin-top: 5px;
   }
   .headlines {
     display: flex;
@@ -144,10 +154,13 @@
   }
   .sign-up-container {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     width: 100%;
     margin-top: 100px;
+  }
+  .form-group {
+    margin: 10px;
   }
 </style>
