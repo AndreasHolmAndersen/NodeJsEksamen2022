@@ -1,5 +1,5 @@
 <script>
-  import { user } from "../stores/stores.js";
+  import { theme, user } from "../stores/stores.js";
   import { toasts } from "svelte-toasts";
   import { useNavigate, useLocation } from "svelte-navigator";
   import { onMount } from "svelte";
@@ -42,12 +42,14 @@
 </script>
 
 <div class="login-container">
-  <h1>Login page</h1>
+  <h1 class="title">CEO-Dashboard</h1>
+  <h3 class="login">Login</h3>
   <div class="form-group">
     <input
+      style="outline-color: {$theme.color}"
       bind:value={username}
       type="text"
-      class="form-control"
+      class="custom-input"
       placeholder="Username"
       required
     />
@@ -55,20 +57,23 @@
 
   <div class="form-group">
     <input
+      style="outline-color: {$theme.color}"
       bind:value={password}
       type="password"
-      class="form-control"
+      class="custom-input"
       placeholder="Password"
       required
     />
   </div>
 
-  <button
-    class="btn btn-full"
-    on:click={() => {
-      handleSubmit();
-    }}>Login</button
-  >
+  <div>
+    <button
+      class="custom-button"
+      on:click={() => {
+        handleSubmit();
+      }}>Login</button
+    >
+  </div>
 </div>
 
 <style>
@@ -80,32 +85,15 @@
     height: 100vh;
     width: 100%;
   }
-
   input {
-    margin: 15px;
-    height: 30px;
-    text-indent: 10px;
-
-    border: none;
-    box-shadow: 1px 1px 1px #888888;
+    margin-bottom: 10px;
   }
-  button {
-    color: white;
+  .login {
     text-transform: uppercase;
-    background-color: #233249;
-    border-width: 0;
-    height: 54px;
-    text-align: center !important;
-    padding: 0 1.25em;
-    width: auto;
-    box-shadow: 1px 1px 1px #888888;
+    margin-bottom: 10px;
   }
-  button:hover {
-    color: #fff;
-    background-color: #233249;
-    border-color: #233249;
-  }
-  h1 {
-    text-transform: uppercase;
+  .title {
+    position: relative;
+    top: -200px;
   }
 </style>
