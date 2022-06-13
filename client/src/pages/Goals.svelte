@@ -51,7 +51,6 @@
       credentials: "include",
     });
     const data = await res.json();
-    console.log(data);
     goals = [...data];
   };
 

@@ -46,7 +46,6 @@ app.use(sessionMiddleware);
 io.use(wrap(sessionMiddleware));
 io.on("connection", (socket) => {
   socket.on("themeChanged", ({ data }) => {
-    console.log(data);
     io.emit("theme", { data });
   });
 });

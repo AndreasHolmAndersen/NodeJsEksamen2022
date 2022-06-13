@@ -19,7 +19,6 @@
     });
 
     const data = await res.json();
-    console.log(data);
     orderId = data.insertedId;
   };
 

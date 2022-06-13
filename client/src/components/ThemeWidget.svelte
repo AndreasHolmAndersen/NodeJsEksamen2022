@@ -5,7 +5,6 @@
 
   socket.on("theme", ({ data }) => {
     theme.set(data);
-    console.log($theme);
   });
 
   const changeTheme = (data) => {

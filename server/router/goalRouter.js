@@ -50,7 +50,6 @@ goalRouter.post("/goals", async (req, res) => {
 });
 
 goalRouter.delete("/goals", async (req, res) => {
-  console.log(req.body);
   await db.goals.deleteOne({ _id: ObjectId(req.body.id) });
   const goals = await db.goals
     .find({
@@ -58,7 +57,6 @@ goalRouter.delete("/goals", async (req, res) => {
       goal: req.body.goal,
     })
     .toArray();
-  console.log(goals);
   res.send(goals);
 });
 

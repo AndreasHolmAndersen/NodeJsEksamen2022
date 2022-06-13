@@ -10,7 +10,6 @@ productRouter.get("/products", async (req, res) => {
 });
 
 productRouter.post("/products", async (req, res) => {
-  console.log(req.body);
   await db.products.insertOne({
     title: req.body.title,
     price: req.body.price,
@@ -21,7 +20,6 @@ productRouter.post("/products", async (req, res) => {
 });
 
 productRouter.delete("/products", async (req, res) => {
-  console.log(req.body.id);
   await db.products.deleteOne({ _id: ObjectId(req.body.id) });
   const products = await db.products.find().toArray();
   res.send(products);
