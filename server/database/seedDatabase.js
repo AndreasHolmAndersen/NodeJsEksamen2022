@@ -57,7 +57,7 @@ const randomOrder = async (start, end) => {
 };
 
 for (let i = 0; i < 9999; i++) {
-  await randomOrder(new Date(2019, 0, 1), new Date(2021, 11, 31));
+  await randomOrder(new Date(2019, 0, 1), new Date());
 }
 
 db.client.close();
