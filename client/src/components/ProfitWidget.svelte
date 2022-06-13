@@ -12,7 +12,7 @@
   let profitGoal;
   let goalPercentage;
 
-  let profitFormatter = Intl.NumberFormat("da-DA", {
+  let currencyFormatter = Intl.NumberFormat("da-DA", {
     style: "currency",
     currency: "DKK",
     maximumFractionDigits: 0,
@@ -69,13 +69,13 @@
     <div class="container">
       <div class="profit-container">
         <p>Profit</p>
-        <p>{profitFormatter.format(profitPeriod)}</p>
+        <p>{currencyFormatter.format(profitPeriod)}</p>
       </div>
       <div class="goals-container">
         {#if profitGoal !== null}
           <p class="goal-headline">Goal</p>
           <p class="text-align">
-            {profitFormatter.format(profitGoal)}
+            {currencyFormatter.format(profitGoal)}
           </p>
         {:else}
           <p>No Goal Entered</p>

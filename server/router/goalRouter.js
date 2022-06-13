@@ -25,6 +25,16 @@ goalRouter.post("/goals/periods", async (req, res) => {
   res.send([goalsPeriodOne, goalsPeriodTwo]);
 });
 
+goalRouter.post("/goals/period", async (req, res) => {
+  const goals = await db.goals
+    .find({
+      year: Number(req.body.year),
+      goal: req.body.goal,
+    })
+    .toArray();
+  res.send(goals);
+});
+
 goalRouter.post("/goals", async (req, res) => {
   const goalFound = await db.goals.findOne({
     year: req.body.year,
@@ -37,6 +47,19 @@ goalRouter.post("/goals", async (req, res) => {
     return;
   }
   res.send({ message: "Goal already exist for this exact period and year" });
+});
+
+goalRouter.delete("/goals", async (req, res) => {
+  console.log(req.body);
+  await db.goals.deleteOne({ _id: ObjectId(req.body.id) });
+  const goals = await db.goals
+    .find({
+      year: Number(req.body.year),
+      goal: req.body.goal,
+    })
+    .toArray();
+  console.log(goals);
+  res.send(goals);
 });
 
 export default goalRouter;

@@ -11,7 +11,7 @@
   let revenuePeriodTwo = 0;
   let differenceInPercentage = 0;
 
-  let revenueFormatter = Intl.NumberFormat("da-DA", {
+  let currencyFormatter = Intl.NumberFormat("da-DA", {
     style: "currency",
     currency: "DKK",
     maximumFractionDigits: 0,
@@ -98,7 +98,7 @@
           {/if}
         </h3>
         <div>
-          {revenueFormatter.format(revenuePeriodOne)}
+          {currencyFormatter.format(revenuePeriodOne)}
         </div>
       </div>
       <div class="period-two">
@@ -109,7 +109,7 @@
           {/if}
         </h3>
         <div class="text-align">
-          {revenueFormatter.format(revenuePeriodTwo)}
+          {currencyFormatter.format(revenuePeriodTwo)}
           {#if differenceInPercentage >= 0}
             <p class="positive">
               {differenceInPercentage}{" %"}
@@ -127,7 +127,7 @@
       <div>
         {#if revenueGoalOne !== null}
           <p class="goal-headline">Goal</p>
-          <p class="text-align">{revenueFormatter.format(revenueGoalOne)}</p>
+          <p class="text-align">{currencyFormatter.format(revenueGoalOne)}</p>
           <div class="pie-chart">
             <PieChart size={50} percent={goalPercentageOne} />
             {#if goalPercentageOne >= 100}
@@ -144,7 +144,7 @@
       <div>
         {#if revenueGoalTwo !== null}
           <p class="goal-headline">Goal</p>
-          <p class="text-align">{revenueFormatter.format(revenueGoalTwo)}</p>
+          <p class="text-align">{currencyFormatter.format(revenueGoalTwo)}</p>
           <div class="pie-chart">
             <PieChart size={50} percent={goalPercentageTwo} />
             {#if goalPercentageTwo >= 100}

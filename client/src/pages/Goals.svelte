@@ -1,5 +1,6 @@
 <script>
   import { theme } from "../stores/stores";
+  import Trashcan from "svelte-material-icons/DeleteForever.svelte";
 
   let year = "";
   let period = {
@@ -11,6 +12,14 @@
 
   let goal = "";
   let goalValue;
+
+  let goals = [];
+
+  let currencyFormatter = Intl.NumberFormat("da-DA", {
+    style: "currency",
+    currency: "DKK",
+    maximumFractionDigits: 0,
+  });
 
   const setGoal = async () => {
     const res = await fetch("http://localhost:3000/goals", {
@@ -26,6 +35,41 @@
       }),
       credentials: "include",
     });
+  };
+
+  const deleteGoal = async (goal) => {
+    const res = await fetch("http://localhost:3000/goals", {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      method: "DELETE",
+      body: JSON.stringify({
+        id: goal._id,
+        year: goal.year,
+        goal: goal.goal,
+      }),
+      credentials: "include",
+    });
+    const data = await res.json();
+    console.log(data);
+    goals = [...data];
+  };
+
+  const getGoals = async () => {
+    goals = [];
+    const res = await fetch("http://localhost:3000/goals/period", {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      method: "POST",
+      body: JSON.stringify({
+        year,
+        goal,
+      }),
+      credentials: "include",
+    });
+    const data = await res.json();
+    goals = [...data];
   };
 </script>
 
@@ -176,13 +220,50 @@
       bind:value={goalValue}
     />
 
-    <button
-      style="border-color: {$theme.color};"
-      class="custom-button"
-      on:click={() => {
-        setGoal();
-      }}>create goal</button
-    >
+    <div style="display: flex;">
+      <button
+        style="border-color: {$theme.color};"
+        class="custom-button"
+        on:click={() => {
+          setGoal();
+        }}>create goal</button
+      >
+      <button
+        style="border-color: {$theme.color};"
+        class="custom-button"
+        on:click={() => {
+          getGoals();
+        }}>get goals</button
+      >
+    </div>
+
+    <div class="goals">
+      <ul class="goal-list">
+        <div class="headlines">
+          <li>Goal</li>
+          <li>Year</li>
+          <li>Period</li>
+          <li>Goal value</li>
+          <li />
+        </div>
+        <hr />
+        {#each goals as goal}
+          <div class="goal">
+            <li class="li">{goal.goal}</li>
+            <li class="li">{goal.year}</li>
+            <li class="li">{goal.periodName}</li>
+            <li class="li">{currencyFormatter.format(goal.goalValue)}</li>
+            <li
+              on:click={() => {
+                deleteGoal(goal);
+              }}
+            >
+              <Trashcan width="1.35em" height="1.35em" />
+            </li>
+          </div>
+        {/each}
+      </ul>
+    </div>
   </div>
 </div>
 
@@ -196,5 +277,17 @@
   }
   button {
     margin-top: 10px;
+  }
+  li {
+    width: 100%;
+    min-width: 130px;
+    margin-top: 5px;
+  }
+  .headlines {
+    display: flex;
+    flex-direction: row;
+  }
+  .goal {
+    display: flex;
   }
 </style>
