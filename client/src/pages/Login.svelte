@@ -68,6 +68,7 @@
 
   <div>
     <button
+      style="border-color: {$theme.color};"
       class="custom-button"
       on:click={() => {
         handleSubmit();
