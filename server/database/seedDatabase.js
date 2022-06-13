@@ -3,7 +3,7 @@ import bcrypt from "bcrypt";
 
 await db.users.deleteMany({ seeded: true });
 await db.products.deleteMany({ seeded: true });
-await db.orders.deleteMany({ products: { seeded: true } });
+await db.orders.deleteMany({ seeded: true });
 
 const products = [
   { title: "Tooth picks", price: 1, cost: 0.5, seeded: true },
@@ -46,6 +46,7 @@ const randomOrder = async (start, end) => {
   });
 
   orders.push({
+    seeded: true,
     products: randomProductsArray,
     date: new Date(
       start.getTime() + Math.random() * (end.getTime() - start.getTime())
