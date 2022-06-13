@@ -20,8 +20,6 @@
     periodName: "year",
   };
 
-  let hoverColor = "transparent";
-
   const getOrdersFromPeriod = async () => {
     const res = await fetch("http://localhost:3000/orders/period", {
       headers: {
@@ -338,13 +336,7 @@
 
   <button
     class="custom-button"
-    on:mouseenter={() => {
-      hoverColor = $theme.color;
-    }}
-    on:mouseleave={() => {
-      hoverColor = "transparent";
-    }}
-    style="border-color: {$theme.color}; background-color: {hoverColor};"
+    style="border-color: {$theme.color};"
     on:click={() => {
       getOrdersFromPeriod();
       periodsStore.set([

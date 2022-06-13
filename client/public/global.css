@@ -40,8 +40,7 @@ input::-webkit-inner-spin-button {
 }
 
 .custom-button:hover {
-  background-color: gray;
-  transition: background-color 400ms;
+  cursor: pointer;
 }
 
 .custom-button:active {

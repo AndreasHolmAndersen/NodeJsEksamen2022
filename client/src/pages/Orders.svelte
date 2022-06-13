@@ -1,5 +1,6 @@
 <script>
   import { onMount } from "svelte";
+  import { theme } from "../stores/stores";
 
   let products = [];
   let order = { products: [] };
@@ -67,12 +68,13 @@
             class="custom-input"
             type="number"
             bind:value={product.amount}
-            style="width: 100%;"
+            style="width: 100%; outline-color: {$theme.color}"
           />
         </li>
         <li>
           <button
             class="custom-button"
+            style="border-color: {$theme.color};"
             on:click={() => {
               order.products.push({ product });
               order = order;
@@ -85,6 +87,7 @@
 
   <div class="finish">
     <button
+      style="border-color: {$theme.color};"
       class="custom-button"
       on:click={() => {
         addOrder();
@@ -95,12 +98,14 @@
 
   <div class="delete-order">
     <input
+      style="outline-color: {$theme.color}"
       class="custom-input delete-input"
       type="text"
       bind:value={orderId}
       placeholder="enter order id"
     />
     <button
+      style="border-color: {$theme.color}"
       class="custom-button"
       on:click={() => {
         deleteOrder();
@@ -140,6 +145,7 @@
     flex-direction: column;
     align-items: center;
     width: 100%;
+    margin-top: 50px;
   }
   li {
     width: 100%;
@@ -168,5 +174,8 @@
   }
   .delete-input {
     margin-right: 10px;
+  }
+  button:hover {
+    background-color: var(--hoverColor);
   }
 </style>

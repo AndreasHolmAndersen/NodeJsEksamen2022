@@ -1,5 +1,5 @@
 <script>
-  import { user } from "../stores/stores.js";
+  import { theme } from "../stores/stores.js";
   import { toasts } from "svelte-toasts";
   import { useNavigate } from "svelte-navigator";
   import { onMount } from "svelte";
@@ -87,6 +87,7 @@
     <p>Create User</p>
     <div class="form-group">
       <input
+        style="outline-color: {$theme.color}"
         bind:value={username}
         type="text"
         class="form-control custom-input"
@@ -97,6 +98,7 @@
 
     <div class="form-group">
       <input
+        style="outline-color: {$theme.color}"
         bind:value={password}
         type="text"
         class="form-control custom-input"
@@ -118,6 +120,7 @@
     </div>
 
     <button
+      style="border-color: {$theme.color};"
       class="custom-button"
       on:click={() => {
         if (username !== "" && password !== "") {
