@@ -1,8 +1,6 @@
 <script>
   import { theme, user } from "../stores/stores.js";
-  import { toasts } from "svelte-toasts";
   import { useNavigate, useLocation } from "svelte-navigator";
-  import { onMount } from "svelte";
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -28,14 +26,10 @@
 
       if (data.username) {
         user.set(data);
-        toasts.success("logged in");
         navigate("/", {
           state: { from: $location.pathname },
           replace: true,
         });
-      }
-      if (data.error) {
-        toasts.error(data.error);
       }
     }
   }

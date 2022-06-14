@@ -1,6 +1,7 @@
 <script>
   import { onMount } from "svelte";
   import { theme } from "../stores/stores";
+ 
 
   let products = [];
   let order = { products: [] };
@@ -75,8 +76,18 @@
             class="custom-button"
             style="border-color: {$theme.color};"
             on:click={() => {
-              order.products.push({ product });
-              order = order;
+              if (product.amount !== undefined) {
+                if (product.amount !== null) {
+                  let foundProduct = order.products.some(
+                    (p) => p.product.title === product.title
+                  );
+                  if (!foundProduct) {
+                    order.products.push({ product });
+                    order = order;
+                  }
+                  foundProduct = null;
+                }
+              }
             }}>+</button
           >
         </li>
@@ -89,7 +100,9 @@
       style="border-color: {$theme.color};"
       class="custom-button"
       on:click={() => {
-        addOrder();
+        if (order.products.length > 0) {
+          addOrder();
+        }
         fetchProducts();
       }}>FINISH</button
     >

@@ -1,6 +1,5 @@
 <script>
   import { Link } from "svelte-navigator";
-  import { toasts } from "svelte-toasts";
   import { theme, user } from "../stores/stores";
 
   export function logout() {
@@ -35,7 +34,6 @@
         class="nav-anchors"
         on:click={() => {
           logout();
-          toasts.warning("youre now logged out");
         }}>Log out</Link
       >
     </li>

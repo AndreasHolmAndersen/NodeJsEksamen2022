@@ -3,9 +3,9 @@
   import Trashcan from "svelte-material-icons/DeleteForever.svelte";
   import { theme } from "../stores/stores";
 
-  let price;
-  let cost;
-  let title;
+  let price = null;
+  let cost = null;
+  let title = "";
   let products = [];
 
   const addProduct = async () => {
@@ -23,8 +23,8 @@
     });
     const data = await res.json();
     products = [...data];
-    price = "";
-    cost = "";
+    price = null;
+    cost = null;
     title = "";
   };
 
@@ -105,7 +105,9 @@
       style="border-color: {$theme.color};"
       class="custom-button"
       on:click={() => {
+        if(price !== null && cost !== null && title !== ""){
         addProduct();
+      }
       }}>Add product</button
     >
   </div>

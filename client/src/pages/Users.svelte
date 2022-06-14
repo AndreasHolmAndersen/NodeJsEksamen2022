@@ -1,11 +1,7 @@
 <script>
   import { theme } from "../stores/stores.js";
-  import { toasts } from "svelte-toasts";
-  import { useNavigate } from "svelte-navigator";
   import { onMount } from "svelte";
   import Trashcan from "svelte-material-icons/DeleteForever.svelte";
-
-  const navigate = useNavigate();
 
   let username = "";
   let password = "";
@@ -100,7 +96,7 @@
       <input
         style="outline-color: {$theme.color}"
         bind:value={password}
-        type="text"
+        type="password"
         class="form-control custom-input"
         placeholder="Password"
         required

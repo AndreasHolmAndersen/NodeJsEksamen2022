@@ -4,7 +4,6 @@
   export let size = 200;
   export let percent = 0;
   let bgColor = "white";
-  //let fgColor = "gray";
 
   $: viewBox = `0 0 ${size} ${size}`;
 

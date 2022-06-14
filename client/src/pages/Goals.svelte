@@ -2,16 +2,15 @@
   import { theme } from "../stores/stores";
   import Trashcan from "svelte-material-icons/DeleteForever.svelte";
 
-  let year = "";
+  let year = null;
   let period = {
-    //might delete start and end at a later time if there is no need for it
     periodStart: "01-01",
     periodEnd: "12-31",
     periodName: "",
   };
 
   let goal = "";
-  let goalValue;
+  let goalValue = null;
 
   let goals = [];
 
@@ -35,6 +34,11 @@
       }),
       credentials: "include",
     });
+    getGoals();
+    year = null;
+    period.periodName = "";
+    goal = "";
+    goalValue = null;
   };
 
   const deleteGoal = async (goal) => {
@@ -219,12 +223,19 @@
       bind:value={goalValue}
     />
 
-    <div style="display: flex;">
+    <div style="display: flex; margin: 50px 0px">
       <button
         style="border-color: {$theme.color};"
         class="custom-button"
         on:click={() => {
-          setGoal();
+          if (
+            year !== null &&
+            period.periodName !== "" &&
+            goal !== "" &&
+            goalValue !== null
+          ) {
+            setGoal();
+          }
         }}>create goal</button
       >
       <button
@@ -236,33 +247,35 @@
       >
     </div>
 
-    <div class="goals">
-      <ul class="goal-list">
-        <div class="headlines">
-          <li>Goal</li>
-          <li>Year</li>
-          <li>Period</li>
-          <li>Goal value</li>
-          <li />
-        </div>
-        <hr />
-        {#each goals as goal}
-          <div class="goal">
-            <li class="li">{goal.goal}</li>
-            <li class="li">{goal.year}</li>
-            <li class="li">{goal.periodName}</li>
-            <li class="li">{currencyFormatter.format(goal.goalValue)}</li>
-            <li
-              on:click={() => {
-                deleteGoal(goal);
-              }}
-            >
-              <Trashcan width="1.35em" height="1.35em" />
-            </li>
+    {#if goals.length > 0}
+      <div class="goals">
+        <ul class="goal-list">
+          <div class="headlines">
+            <li>Goal</li>
+            <li>Year</li>
+            <li>Period</li>
+            <li>Goal value</li>
+            <li />
           </div>
-        {/each}
-      </ul>
-    </div>
+          <hr />
+          {#each goals as goal}
+            <div class="goal">
+              <li class="li">{goal.goal}</li>
+              <li class="li">{goal.year}</li>
+              <li class="li">{goal.periodName}</li>
+              <li class="li">{currencyFormatter.format(goal.goalValue)}</li>
+              <li
+                on:click={() => {
+                  deleteGoal(goal);
+                }}
+              >
+                <Trashcan width="1.35em" height="1.35em" />
+              </li>
+            </div>
+          {/each}
+        </ul>
+      </div>
+    {/if}
   </div>
 </div>
 

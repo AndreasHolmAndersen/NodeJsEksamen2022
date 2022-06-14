@@ -20,9 +20,7 @@ authRouter.post("/auth/sign-up", async (req, res) => {
     });
     const userList = await db.users.find().toArray();
     res.send(userList);
-  } else {
-    res.send({ message: "You are not authorized to create users" });
-  }
+  } 
 });
 
 authRouter.post("/auth/login", async (req, res) => {

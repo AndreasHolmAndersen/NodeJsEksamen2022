@@ -1,5 +1,5 @@
 <script>
-  import { goals, ordersFromPeriods, theme } from "../stores/stores";
+  import { ordersFromPeriods, theme } from "../stores/stores";
   import PieChart from "./PieChart.svelte";
 
   export let ordersFromPeriod;
